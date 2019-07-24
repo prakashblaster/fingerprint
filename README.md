@@ -1,2 +1,0 @@
-# fingerprint
-finger_print
