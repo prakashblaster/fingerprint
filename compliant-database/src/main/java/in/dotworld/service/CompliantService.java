@@ -1,22 +1,15 @@
 package in.dotworld.service;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -29,16 +22,16 @@ public class CompliantService {
 
 	@Autowired
 	private CompliantRepository cRepository;
-
+	@ResponseBody
 	public String saveCompliant(InputRequest<CompliantModel> request) {
 		request.setTimeZone(Calendar.getInstance().getTimeZone().getDisplayName());
 		CompliantModel compliantModel = request.getCompliant();
 		UUID uuid = UUID.randomUUID();
 		compliantModel.setId(uuid);
 		compliantModel.getCompliantType().toUpperCase();
-		
 		cRepository.save(compliantModel);
-		return "compliant created successfully....";
+		 return "compliant created successfully";
+
 	}
 
 	public String updateType(int no, String compliantType, InputRequest<CompliantModel> request) {
@@ -64,7 +57,7 @@ public class CompliantService {
 	}
 	
 
-	public ResponseEntity uploadFile(MultipartFile file,int no) {
+	public String uploadFile(MultipartFile file,int no) {
 		
 		CompliantModel cModel = cRepository.findById(no).get();
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -79,7 +72,7 @@ public class CompliantService {
 				.path("/files/download/")
 				.path(file.getOriginalFilename()).path("/db")
 				.toUriString();
-		return ResponseEntity.ok(fileDownloadUri);
+		return "uploaded successfully"+"\n" +fileDownloadUri;
 	}
 	
 	

@@ -1,12 +1,9 @@
 package in.dotworld.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InputRequest<T> {
-
-	@JsonProperty(value = "userId", required = false)
 	
 	private String timeZone;
 	private T compliant;
