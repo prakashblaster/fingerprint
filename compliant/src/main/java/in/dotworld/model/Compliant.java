@@ -19,7 +19,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "compliant_raise")
+@Table(name = "COMPLIANT_DB")
 public class Compliant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

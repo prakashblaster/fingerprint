@@ -52,7 +52,8 @@ public class FileStorageService {
 		Compliant compliantModel = request.getCompliant();
 		UUID uuid=UUID.randomUUID();
 		compliantModel.setId(uuid.toString());
-		compliantModel.getCompliantType().toUpperCase();
+		String type=compliantModel.getCompliantType();
+		compliantModel.setCompliantType(type.toUpperCase());
 		cRepository.save(compliantModel);
 		return "compliant created successfully";
 
@@ -61,7 +62,7 @@ public class FileStorageService {
 	public String updateType(int no, String compliantType, InputRequest<Compliant> request) {
 		Compliant compliantModel = cRepository.findById(no).get();
 		if (compliantModel != null) {
-			compliantModel.setCompliantType(compliantType);
+			compliantModel.setCompliantType(compliantType.toUpperCase());
 			cRepository.saveAndFlush(compliantModel);
 		} else {
 			throw new RuntimeException("compliant not found");
@@ -78,6 +79,13 @@ public class FileStorageService {
 			throw new RuntimeException("compliant not found");
 		}
 		return "compliant updated successfully";
+	}
+	
+	public String deleteCompliant(int no) {
+		Compliant compliant=cRepository.findById(no).get();
+		cRepository.delete(compliant);
+		return "deleted successfully";
+		
 	}
 
 }
