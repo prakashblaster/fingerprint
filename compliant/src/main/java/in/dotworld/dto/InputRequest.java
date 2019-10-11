@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InputRequest<T> {
-	
+
 	private String timeZone;
 	private T compliant;
 
@@ -12,7 +12,7 @@ public class InputRequest<T> {
 
 	}
 
-	public InputRequest( String timeZone, T compliant) {
+	public InputRequest(String timeZone, T compliant) {
 		super();
 		this.timeZone = timeZone;
 		this.compliant = compliant;

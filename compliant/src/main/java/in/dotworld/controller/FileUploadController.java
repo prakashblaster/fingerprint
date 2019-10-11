@@ -11,25 +11,20 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import in.dotworld.model.Compliant;
 import in.dotworld.service.FileStorageService;
 
-
 @RestController
 public class FileUploadController {
-	
 
-    @Autowired
-    private FileStorageService fileStorageService;
+	@Autowired
+	private FileStorageService fileStorageService;
 
-    @PostMapping("/uploadFile/{no}")
-    public String uploadFile(@RequestParam("file") MultipartFile file,@PathVariable int no) {
-    	Compliant fileName = fileStorageService.storeFile(file,no);
+	@PostMapping("/uploadFile/{no}")
+	public String uploadFile(@RequestParam("file") MultipartFile file, @PathVariable int no) {
+		Compliant fileName = fileStorageService.storeFile(file, no);
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName.getAttachment())
-                .toUriString();
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+				.path(fileName.getAttachment()).toUriString();
 
-        return  "uploaded successfully" +"\n"+fileDownloadUri;
-    }
+		return "uploaded successfully" + "\n" + fileDownloadUri;
+	}
 
- 
 }
