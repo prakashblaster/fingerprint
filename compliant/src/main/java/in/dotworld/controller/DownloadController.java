@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import in.dotworld.model.Compliant;
@@ -21,6 +23,7 @@ public class DownloadController {
 	private FileStorageService fileStorageService;
 
 	@GetMapping("/downloadFile/{no}")
+	@ResponseStatus(value = HttpStatus.CREATED)
 	public ResponseEntity<Resource> downloadFile(@PathVariable int no, HttpServletRequest request) {
 		Compliant databaseFile = fileStorageService.getFile(no);
 
