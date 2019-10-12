@@ -21,9 +21,9 @@ public class FileStorageService {
 	@Autowired
 	private CompliantRepository cRepository;
 
-	public Compliant storeFile(MultipartFile file, int no) {
+	public Compliant storeFile(MultipartFile file, String id) {
 
-		Compliant compliant = cRepository.findById(no).get();
+		Compliant compliant = cRepository.findById(id).get();
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		compliant.setAttachment(fileName);
 
@@ -39,16 +39,14 @@ public class FileStorageService {
 		}
 	}
 
-	public Compliant getFile(int no) {
-		return cRepository.findById(no).orElseThrow(() -> new MyFileNotFoundException("File not found with id " + no));
+	public Compliant getFile(String FildId) {
+		return cRepository.findById(FildId)
+				.orElseThrow(() -> new MyFileNotFoundException("File not found with id " + FildId));
 	}
-	
 
 	public String saveCompliant(InputRequest<Compliant> request) {
 		request.setTimeZone(Calendar.getInstance().getTimeZone().getDisplayName());
 		Compliant compliantModel = request.getCompliant();
-		UUID uuid = UUID.randomUUID();
-		compliantModel.setId(uuid.toString());
 		String type = compliantModel.getCompliantType();
 		compliantModel.setCompliantType(type.toUpperCase());
 		cRepository.save(compliantModel);
@@ -56,8 +54,8 @@ public class FileStorageService {
 
 	}
 
-	public String updateType(int no, String compliantType, InputRequest<Compliant> request) {
-		Compliant compliantModel = cRepository.findById(no).get();
+	public String updateType(String id, String compliantType, InputRequest<Compliant> request) {
+		Compliant compliantModel = cRepository.findById(id).get();
 		if (compliantModel != null) {
 			compliantModel.setCompliantType(compliantType.toUpperCase());
 			cRepository.saveAndFlush(compliantModel);
@@ -67,8 +65,8 @@ public class FileStorageService {
 		return "compliant updated successfully";
 	}
 
-	public String updateDescription(int no, String description, InputRequest<Compliant> request) {
-		Compliant compliantModel = cRepository.findById(no).get();
+	public String updateDescription(String id, String description, InputRequest<Compliant> request) {
+		Compliant compliantModel = cRepository.findById(id).get();
 		if (compliantModel != null) {
 			compliantModel.setDescription(description);
 			cRepository.saveAndFlush(compliantModel);
@@ -78,8 +76,8 @@ public class FileStorageService {
 		return "compliant updated successfully";
 	}
 
-	public String deleteCompliant(int no) {
-		Compliant compliant = cRepository.findById(no).get();
+	public String deleteCompliant(String id) {
+		Compliant compliant = cRepository.findById(id).get();
 		cRepository.delete(compliant);
 		return "deleted successfully";
 

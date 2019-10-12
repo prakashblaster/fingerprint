@@ -5,11 +5,11 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,16 +18,16 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "COMPLIANT_DB")
 public class Compliant {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int no;
+	@GeneratedValue(generator = "system-uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid")
+	private String id;
+
 	private String compliantType;
 	private String description;
 	private String attachment;
 	private String fileType;
-
-	@GeneratedValue
-	private String id;
 
 	@Lob
 	private byte[] data;
@@ -42,20 +42,19 @@ public class Compliant {
 
 	}
 
+	public Compliant(String attachment, String fileType, byte[] data) {
+		super();
+		this.attachment = attachment;
+		this.fileType = fileType;
+		this.data = data;
+	}
+
 	public String getFileType() {
 		return fileType;
 	}
 
 	public void setFileType(String fileType) {
 		this.fileType = fileType;
-	}
-
-	public int getNo() {
-		return no;
-	}
-
-	public void setNo(int no) {
-		this.no = no;
 	}
 
 	public String getCompliantType() {

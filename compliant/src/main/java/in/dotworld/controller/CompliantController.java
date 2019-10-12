@@ -25,22 +25,22 @@ public class CompliantController {
 		return service.saveCompliant(request);
 	}
 
-	@PutMapping("/update/type/{no}/{compliantType}")
+	@PutMapping("/update/type/{id}/{compliantType}")
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public String updateCompliantType(@PathVariable int no, @PathVariable String compliantType,
+	public String updateCompliantType(@PathVariable String id, @PathVariable String compliantType,
 			@RequestBody InputRequest<Compliant> request) {
-		return service.updateType(no, compliantType, request);
+		return service.updateType(id, compliantType, request);
 	}
 
-	@PutMapping("/update/description/{no}/{description}")
+	@PutMapping("/update/description/{id}/{description}")
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public String updateCompliantDescription(@PathVariable int no, @PathVariable String description,
+	public String updateCompliantDescription(@PathVariable String id, @PathVariable String description,
 			@RequestBody InputRequest<Compliant> request) {
-		return service.updateDescription(no, description, request);
+		return service.updateDescription(id, description, request);
 	}
 
-	@DeleteMapping("/delete/{no}")
-	public String deleteCompliant(@PathVariable int no) {
-		return service.deleteCompliant(no);
+	@DeleteMapping("/delete/{id}")
+	public String deleteCompliant(@PathVariable String id) {
+		return service.deleteCompliant(id);
 	}
 }

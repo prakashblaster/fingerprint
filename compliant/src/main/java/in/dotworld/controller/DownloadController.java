@@ -22,16 +22,16 @@ public class DownloadController {
 	@Autowired
 	private FileStorageService fileStorageService;
 
-	@GetMapping("/downloadFile/{no}")
+	@GetMapping("/downloadFile/{attachment:.+}/{id}")
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public ResponseEntity<Resource> downloadFile(@PathVariable int no, HttpServletRequest request) {
-		Compliant databaseFile = fileStorageService.getFile(no);
+	public ResponseEntity<Resource> downloadFile(@PathVariable String attachment, @PathVariable String id,
+			HttpServletRequest request) {
+		Compliant databaseFile = fileStorageService.getFile(id);
 
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType(databaseFile.getFileType()))
 				.header(HttpHeaders.CONTENT_DISPOSITION,
 						"attachment; filename=\"" + databaseFile.getAttachment() + "\"")
 				.body(new ByteArrayResource(databaseFile.getData()));
 	}
-
 
 }

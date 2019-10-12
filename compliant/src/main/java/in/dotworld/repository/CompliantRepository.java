@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import in.dotworld.model.Compliant;
 
 
-public interface CompliantRepository extends JpaRepository<Compliant, Integer> {
+public interface CompliantRepository extends JpaRepository<Compliant, String> {
 
 }
