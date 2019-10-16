@@ -14,12 +14,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"createdAt","updatedAt"},allowGetters = true)
+@JsonIgnoreProperties(value = { "createdAt", "updatedAt" }, allowGetters = true)
 public abstract class DateAudit implements Serializable {
 
 	@CreatedDate
 	private Instant createdAt;
-	
+
 	@LastModifiedDate
 	private Instant updatedAt;
 
@@ -38,7 +38,5 @@ public abstract class DateAudit implements Serializable {
 	public void setUpdatedAt(Instant updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
 
 }

@@ -4,8 +4,6 @@ public class SignupResponse {
 	private Boolean success;
 	private String message;
 
-
-
 	public SignupResponse(Boolean success, String message) {
 		super();
 		this.success = success;
