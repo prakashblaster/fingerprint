@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import in.dotworld.security.JwtTokenProvider;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -88,5 +90,10 @@ public class AuthController {
 				.buildAndExpand(result.getUsername()).toUri();
 
 		return ResponseEntity.created(location).body(new SignupResponse(true, "User registered successfully"));
+	}
+	
+	@GetMapping("/users")
+	public List<User> getUsers() {
+		return userRepository.findAll();
 	}
 }
