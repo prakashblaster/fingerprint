@@ -16,27 +16,28 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	public String addEmployee(Optional<Employee> employee) {
-		Employee employee2 = employee.get();
-		employeeRepository.save(employee2);
+	public String addEmployee(Employee employee) {
+		
+		employeeRepository.save(employee);
 
 		String mapString = ServletUriComponentsBuilder.fromCurrentContextPath().path("/employees/")
-				.path("/" + employee2.getNo() + "/").toUriString();
+				.path("/" + employee.getNo()).toUriString();
 		String mapAll = ServletUriComponentsBuilder.fromCurrentContextPath().path("/employees/").toUriString();
 
 		return "employee added successfully" + "\n" + "Current Employee" + " " + ":" + " " + mapString + "\n"
 				+ "All Employees" + " " + ":" + " " + mapAll;
 	}
 
-	public String updateName(int no, String name, Optional<Employee> employee) {
+	public String updateName(int no, Employee employee) {
 		Employee emp = employeeRepository.findById(no).get();
 		if (emp != null) {
-			emp.setName(name);
-			employeeRepository.saveAndFlush(emp);
+			employeeRepository.saveAndFlush(employee);
 		} else {
 			throw new RuntimeException("employee not found");
 		}
-		return "updated successfully";
+		String linkString=ServletUriComponentsBuilder.fromCurrentContextPath().path("/employees/")
+				.path("/"+emp.getNo()).toUriString();
+		return "updated successfully" +"\n"+"view updated employee"+" "+":"+" "+linkString;
 	}
 
 	public List<Employee> getEmployees() {

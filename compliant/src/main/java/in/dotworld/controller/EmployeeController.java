@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,31 +19,32 @@ import in.dotworld.model.Employee;
 import in.dotworld.service.EmployeeService;
 
 @RestController
+@RequestMapping("/employees")
 public class EmployeeController {
 
 	@Autowired
 	EmployeeService employeeService;
 
-	@PostMapping("/employee")
+	@PostMapping("")
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public String addEmployee(@RequestBody Optional<Employee> employee) {
+	public String addEmployee(@RequestBody Employee employee) {
 		return employeeService.addEmployee(employee);
 	}
 
-	@GetMapping("employees/{no}")
+	@GetMapping("/{no}")
 	public Employee getEmp(@RequestBody Employee employee, @PathVariable int no) {
 		return employeeService.getEmp(no, employee);
 	}
 
-	@GetMapping("/employees")
+	@GetMapping("")
 	public List<Employee> getAllEmp() {
 		return employeeService.getEmployees();
 	}
 
-	@PutMapping("/employee/{no}/{name}")
+	@PutMapping("/{no}")
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public String updateName(@RequestBody Optional<Employee> emp, @PathVariable String name, @PathVariable int no) {
-		return employeeService.updateName(no, name, emp);
+	public String updateName(@RequestBody Employee emp, @PathVariable int no) {
+		return employeeService.updateName(no, emp);
 	}
 
 }
