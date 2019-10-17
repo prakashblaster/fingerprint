@@ -26,13 +26,13 @@ public class CompliantController {
 	@Autowired
 	private FileStorageService service;
 
-	@PostMapping("/")
+	@PostMapping("")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public String saveCompliant(@RequestBody Compliant compliant) {
 		return service.saveCompliant(compliant);
 	}
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public List<Compliant> getAllCompliant() {
 		return service.getAllCompliant();
 	}
@@ -41,18 +41,6 @@ public class CompliantController {
 	public Compliant getCompliant(@PathVariable String id) {
 		return service.getCompliantById(id);
 	}
-
-//	@PutMapping("/{id}")
-//	@ResponseStatus(value = HttpStatus.CREATED)
-//	public String updateCompliantType(@PathVariable String id) {
-//		return service.updateType(id);
-//	}
-//
-//	@PutMapping("/{id}")
-//	@ResponseStatus(value = HttpStatus.CREATED)
-//	public String updateCompliantDescription(@PathVariable String id) {
-//		return service.updateDescription(id);
-//	}
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(value = HttpStatus.CREATED)
@@ -61,7 +49,7 @@ public class CompliantController {
 		
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public String deleteCompliant(@PathVariable String id) {
 		return service.deleteCompliant(id);
 	}

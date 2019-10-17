@@ -50,44 +50,14 @@ public class FileStorageService {
 		compliant.setCompliantType(type.toUpperCase());
 		cRepository.save(compliant);
 
-		String compliantById = ServletUriComponentsBuilder.fromCurrentContextPath().path("/compliants/")
-				.path("/" + compliant.getId() + "/").toUriString();
+		String compliantById = ServletUriComponentsBuilder.fromCurrentContextPath().path("/compliants")
+				.path("/" + compliant.getId()).toUriString();
 
-		String compliantlink = ServletUriComponentsBuilder.fromCurrentContextPath().path("/compliants/").toUriString();
+		String compliantlink = ServletUriComponentsBuilder.fromCurrentContextPath().path("/compliants").toUriString();
 		return "compliant created successfully" + "\n" + "\n" + "Added Compliant" + " " + ":" + " " + compliantById
 				+ "\n" + "\n" + "All Compliants" + " " + ":" + " " + compliantlink;
 
 	}
-
-//	public String updateType(String id) {
-//		Compliant compliantModel = cRepository.findById(id).get();
-//		if (compliantModel != null) {
-//			String compliantType=compliantModel.getCompliantType();
-//			compliantModel.setCompliantType(compliantType.toUpperCase());
-//			cRepository.saveAndFlush(compliantModel);
-//		} else {
-//			throw new RuntimeException("compliant not found");
-//		}
-//		String link=ServletUriComponentsBuilder.fromCurrentContextPath().path("/compliants")
-//				.path("/"+compliantModel.getId()+"/").toUriString();
-//		return "compliant updated successfully"+"\n"+"/n"
-//		+"View Updated Compliant"+" "+":"+" "+link;
-//	}
-//
-//	public String updateDescription(String id) {
-//		Compliant compliantModel = cRepository.findById(id).get();
-//		if (compliantModel != null) {
-//			String description=compliantModel.getDescription();
-//			compliantModel.setDescription(description);
-//			cRepository.saveAndFlush(compliantModel);
-//		} else {
-//			throw new RuntimeException("compliant not found");
-//		}
-//		String link=ServletUriComponentsBuilder.fromCurrentContextPath().path("/compliants")
-//				.path("/"+compliantModel.getId()+"/").toUriString();
-//		return "compliant updated successfully"+"\n"+"/n"
-//		+"View Updated Compliant"+" "+":"+" "+link;
-//	}
 
 	public List<Compliant> getAllCompliant() {
 		return cRepository.findAll();
@@ -125,7 +95,7 @@ public class FileStorageService {
 			throw new RuntimeException("compliant not found");
 		}
 		String link = ServletUriComponentsBuilder.fromCurrentContextPath().path("/compliants")
-				.path("/" + compliantModel.getId() + "/").toUriString();
+				.path("/" + compliantModel.getId()).toUriString();
 		return "compliant updated successfully" + "\n" + "\n" + "View Updated Compliant" + " " + ":" + " " + link;
 	}
 

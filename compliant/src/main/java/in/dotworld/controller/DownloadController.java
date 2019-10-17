@@ -22,7 +22,7 @@ public class DownloadController {
 	@Autowired
 	private FileStorageService fileStorageService;
 
-	@GetMapping("/compliant/file/{id}/{attachment:.+}/")
+	@GetMapping("/compliants/file/{id}/{attachment:.+}")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public ResponseEntity<Resource> downloadFile(@PathVariable String attachment, @PathVariable String id,
 			HttpServletRequest request) {
