@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -97,6 +100,23 @@ public class FileStorageService {
 		String link = ServletUriComponentsBuilder.fromCurrentContextPath().path("/compliants")
 				.path("/" + compliantModel.getId()).toUriString();
 		return "compliant updated successfully" + "\n" + "\n" + "View Updated Compliant" + " " + ":" + " " + link;
+	}
+
+	public String getCompliantType(String id) {
+		Compliant compliant = cRepository.findById(id).get();
+		return compliant.getCompliantType();
+	}
+
+	public String getDescription(String id) {
+		Compliant compliant = cRepository.findById(id).get();
+		return compliant.getDescription();
+	}
+
+	public String getAttachment(String id) {
+		Compliant compliant = cRepository.findById(id).get();
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/compliants/").path(id+"/")
+				.path(compliant.getAttachment()).toUriString();
+		return compliant.getAttachment() + "\n" + "\n" + "download link" + " " + ":" + " " + fileDownloadUri;
 	}
 
 }

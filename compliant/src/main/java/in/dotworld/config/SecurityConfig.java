@@ -1,6 +1,6 @@
 package in.dotworld.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import in.dotworld.model.Role;
 import in.dotworld.security.CustomUserDetailsService;
 import in.dotworld.security.JwtAuthenticationEntryPoint;
 import in.dotworld.security.JwtAuthenticationFilter;

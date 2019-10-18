@@ -1,5 +1,7 @@
 package in.dotworld.config;
 
+import java.util.Optional;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -10,31 +12,30 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import in.dotworld.security.UserPrincipal;
 
-import java.util.Optional;
-
 @Configuration
 @EnableJpaAuditing
 public class AuditingConfig {
 
-	@Bean
-	public AuditorAware<Long> auditorProvider() {
-		return new SpringSecurityAuditAwareImpl();
-	}
+    @Bean
+    public AuditorAware<Long> auditorProvider() {
+        return new SpringSecurityAuditAwareImpl();
+    }
 }
 
 class SpringSecurityAuditAwareImpl implements AuditorAware<Long> {
 
-	@Override
-	public Optional<Long> getCurrentAuditor() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    @Override
+    public Optional<Long> getCurrentAuditor() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-		if (authentication == null || !authentication.isAuthenticated()
-				|| authentication instanceof AnonymousAuthenticationToken) {
-			return Optional.empty();
-		}
+        if (authentication == null ||
+                !authentication.isAuthenticated() ||
+                authentication instanceof AnonymousAuthenticationToken) {
+            return Optional.empty();
+        }
 
-		UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
-		return Optional.ofNullable(userPrincipal.getId());
-	}
+        return Optional.ofNullable(userPrincipal.getId());
+    }
 }

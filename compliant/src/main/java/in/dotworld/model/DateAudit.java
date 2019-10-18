@@ -3,6 +3,7 @@ package in.dotworld.model;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 
@@ -18,9 +19,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public abstract class DateAudit implements Serializable {
 
 	@CreatedDate
+	@Column(name = "created_at")
 	private Instant createdAt;
 
 	@LastModifiedDate
+	@Column(name = "updated_at")
 	private Instant updatedAt;
 
 	public Instant getCreatedAt() {

@@ -19,16 +19,20 @@ public class FileUploadController {
 	@Autowired
 	private FileStorageService fileStorageService;
 
-	@PostMapping("/compliants/file/{id}")
+	@PostMapping("/compliants/{id}/file")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public String uploadFile(@RequestParam("file") MultipartFile file, @PathVariable String id) {
 		Compliant fileName = fileStorageService.storeFile(file, id);
 
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/compliants/file/")
-				.path("/" + id + "/")
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/compliants/")
+				.path( id )
 				.path(fileName.getAttachment()).toUriString();
+		String fileDownloadUri1 = ServletUriComponentsBuilder.fromCurrentContextPath().path("/compliants/")
+				.path( id )
+				.toUriString();
 
-		return "uploaded successfully" + "\n" + fileDownloadUri;
+		return "uploaded successfully" + "\n" + "download link"+" "+":"+" "+ fileDownloadUri
+				+"\n"+"view compliant"+" "+":"+" "+fileDownloadUri1;
 	}
 
 }
